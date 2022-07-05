@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { ArrowLeftOutlined, ArrowRightOutlined } from '@material-ui/icons'
 import { useState } from 'react'
 import { sliderItems } from '../data'
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
     width: 100%;
@@ -92,14 +93,16 @@ const Slider = () => {
         </Arrow>
         <Wrapper slideIndex={slideIndex}>
             {sliderItems.map((item)=> (
-                <Slide bg={item.bg}>
+                <Slide bg={item.bg} key={item.id}>
                     <ImgContainer>
                         <Image src={item.img}></Image>
                     </ImgContainer>
                     <InfoContainer>
                         <Title>{item.title}</Title>
                         <Description>{item.desc}</Description>
-                        <Button>BUY NOW</Button>
+                        <Link to="/list">
+                            <Button>SHOP NOW</Button>
+                        </Link>
                     </InfoContainer>
                 </Slide>
                 ))}
