@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import { ShoppingCartOutlined, SearchOutlined, FavoriteBorderOutlined} from '@material-ui/icons'
+import { ShoppingCartOutlined, SearchOutlined} from '@material-ui/icons'
 import { Link } from "react-router-dom";
-
+import FavoriteButton from './FavoriteButton';
 
 const Info = styled.div`
     opacity: 0;
@@ -63,6 +63,10 @@ const Icon = styled.div`
         background-color: #e9f5f5;
         transform: scale(1.1);
     }
+
+    svg {
+        color: initial !important;
+    }
 `
 
 const Product = ({item}) => {
@@ -75,13 +79,11 @@ const Product = ({item}) => {
                 <ShoppingCartOutlined/>
             </Icon>
             <Icon>
-                <Link to="/detail">
+                <Link to={`/detail/${item.id}`}>
                     <SearchOutlined/>
                 </Link>
             </Icon>
-            <Icon>
-                <FavoriteBorderOutlined/>
-            </Icon>
+            <FavoriteButton productId={item.id} big />
         </Info>
     </Container>
   )

@@ -1,6 +1,9 @@
+import { useEffect } from 'react'
 import styled from 'styled-components'
-import { categories } from '../data'
+import useApi from '../hooks/useApi'
 import CategoryItem from './CategoryItem'
+import Loading from './Loading'
+import Alert from './Alert'
 
 const Container = styled.div`
     display: flex;
@@ -9,11 +12,19 @@ const Container = styled.div`
 `
 
 const Categories = () => {
-  return (
+
+  const [fetchData, { response, error, loading }] = useApi()
+
+    useEffect(() => {
+      fetchData('categories')
+    }, [])
+
+  return  (
     <Container>
-        {categories.map(item=>(
-            <CategoryItem item={item} key={item.id}/>
-        ))}
+      {loading ? <Loading /> : response.map(item=>(
+        <CategoryItem item={item} key={item.id}/>
+      ))}
+      {error && <Alert open={true} message={`url: ${error?.url} - error: ${error?.message}`} />}
     </Container>
   )
 }

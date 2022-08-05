@@ -2,6 +2,7 @@ import { Search, ShoppingBasketOutlined } from '@material-ui/icons'
 import React from 'react'
 import styled from 'styled-components'
 import Badge from '@mui/material/Badge';
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   height: 60px;
@@ -41,6 +42,10 @@ const Center = styled.div`
 `
 const Logo = styled.h1`
   font-weight: bold; 
+  a {
+    text-decoration: none !important;
+    color: initial !important;
+  }
 `
 
 const Right = styled.div`
@@ -67,7 +72,11 @@ const Navbar = () => {
             <Search style={{color:"gray", fontSize:16}}/>
           </SearchContainer>
         </Left>
-        <Center><Logo>FLYING LLAMAS.</Logo></Center>
+        <Center>
+          <Logo>
+            <Link to="/">FLYING LLAMAS.</Link>
+          </Logo>
+        </Center>
         <Right>
           <MenuItem>SIGN IN</MenuItem>
           <MenuItem>REGISTER</MenuItem>

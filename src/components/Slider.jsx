@@ -1,8 +1,10 @@
 import styled from 'styled-components'
 import { ArrowLeftOutlined, ArrowRightOutlined } from '@material-ui/icons'
-import { useState } from 'react'
-import { sliderItems } from '../data'
+import { useState, useEffect } from 'react'
 import { Link } from "react-router-dom";
+import useApi from '../hooks/useApi';
+import Loading from './Loading';
+import Alert from './Alert';
 
 const Container = styled.div`
     width: 100%;
@@ -78,6 +80,9 @@ cursor: pointer;
 
 const Slider = () => {
     const [slideIndex, setSlideIndex] = useState(0)
+
+    const [fetchData, { response, error, loading }] = useApi()
+
     const handleClick = (direction) => {
         if(direction === 'left') {
             setSlideIndex(slideIndex > 0 ? slideIndex -1 : 2)
@@ -86,13 +91,19 @@ const Slider = () => {
         }
     }
 
+    useEffect(() => {
+      fetchData('slider-items')
+    }, [])
+
   return (
     <Container>
-        <Arrow direction="left" onClick={()=>handleClick("left")}>
-            <ArrowLeftOutlined/>
-        </Arrow>
-        <Wrapper slideIndex={slideIndex}>
-            {sliderItems.map((item)=> (
+        {loading ?
+            <Loading /> :
+            <>
+                <Arrow direction="left" onClick={()=>handleClick("left")}>
+                    <ArrowLeftOutlined/>
+                </Arrow>
+                {response && response.map((item)=> (
                 <Slide bg={item.bg} key={item.id}>
                     <ImgContainer>
                         <Image src={item.img}></Image>
@@ -106,10 +117,12 @@ const Slider = () => {
                     </InfoContainer>
                 </Slide>
                 ))}
-        </Wrapper>
-        <Arrow direction="right"  onClick={()=>handleClick("right")}>
-            <ArrowRightOutlined/>
-        </Arrow>
+                <Arrow direction="right"  onClick={()=>handleClick("right")}>
+                    <ArrowRightOutlined/>
+                </Arrow>
+            </>
+        }
+        {error && <Alert open={true} message={`url: ${error?.url} - error: ${error?.message}`} />}
     </Container>
   )
 }
