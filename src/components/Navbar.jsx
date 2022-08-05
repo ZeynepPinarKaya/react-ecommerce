@@ -1,8 +1,8 @@
-import { Search, ShoppingBasketOutlined } from '@material-ui/icons'
-import React from 'react'
-import styled from 'styled-components'
+import { Search, ShoppingBasketOutlined } from '@material-ui/icons';
 import Badge from '@mui/material/Badge';
+import React from 'react';
 import { Link } from "react-router-dom";
+import styled from 'styled-components';
 
 const Container = styled.div`
   height: 60px;
@@ -81,7 +81,7 @@ const Navbar = () => {
           <MenuItem>SIGN IN</MenuItem>
           <MenuItem>REGISTER</MenuItem>
           <MenuItem>
-            <Badge badgeContent={4} color="primary">
+            <Badge badgeContent={1} color="primary">
               <ShoppingBasketOutlined />
             </Badge>
           </MenuItem>

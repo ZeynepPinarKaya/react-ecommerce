@@ -1,10 +1,10 @@
-import styled from 'styled-components'
-import { ArrowLeftOutlined, ArrowRightOutlined } from '@material-ui/icons'
-import { useState, useEffect } from 'react'
+import { ArrowLeftOutlined, ArrowRightOutlined } from '@material-ui/icons';
+import { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
+import styled from 'styled-components';
 import useApi from '../hooks/useApi';
-import Loading from './Loading';
 import Alert from './Alert';
+import Loading from './Loading';
 
 const Container = styled.div`
     width: 100%;
@@ -72,10 +72,10 @@ const Description = styled.p`
 `
 
 const Button = styled.button`
-padding: 10px;
-font-size: 20px;
-background-color: transparent;
-cursor: pointer;
+    padding: 10px;
+    font-size: 20px;
+    background-color: transparent;
+    cursor: pointer;
 `
 
 const Slider = () => {
@@ -103,20 +103,22 @@ const Slider = () => {
                 <Arrow direction="left" onClick={()=>handleClick("left")}>
                     <ArrowLeftOutlined/>
                 </Arrow>
-                {response && response.map((item)=> (
-                <Slide bg={item.bg} key={item.id}>
-                    <ImgContainer>
-                        <Image src={item.img}></Image>
-                    </ImgContainer>
-                    <InfoContainer>
-                        <Title>{item.title}</Title>
-                        <Description>{item.desc}</Description>
-                        <Link to="/list">
-                            <Button>SHOP NOW</Button>
-                        </Link>
-                    </InfoContainer>
-                </Slide>
-                ))}
+                {response && <Wrapper slideIndex={slideIndex}>
+                    {response.map((item)=> (
+                        <Slide bg={item.bg} key={item.id}>
+                            <ImgContainer>
+                                <Image src={item.img}></Image>
+                            </ImgContainer>
+                            <InfoContainer>
+                                <Title>{item.title}</Title>
+                                <Description>{item.desc}</Description>
+                                <Link to="/list">
+                                    <Button>SHOP NOW</Button>
+                                </Link>
+                            </InfoContainer>
+                        </Slide>
+                    ))}
+                </Wrapper>}
                 <Arrow direction="right"  onClick={()=>handleClick("right")}>
                     <ArrowRightOutlined/>
                 </Arrow>
